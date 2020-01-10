@@ -3,7 +3,7 @@
 
 Name: gnome-themes-standard
 Version: 3.22.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Standard themes for GNOME applications
 
 License: LGPLv2+
@@ -14,6 +14,8 @@ Source3: metacity-theme-2.xml
 
 # Backported from upstream
 Patch0: 0001-Install-Adwaita-dark-css-file-in-the-right-directory.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=1549711
+Patch1: 0001-Do-not-set-treeview-colors.patch
 
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: gtk3-devel >= %{gtk3_version}
@@ -42,6 +44,7 @@ with a GNOME look and feel.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure
@@ -111,6 +114,10 @@ done
 %{_datadir}/themes/HighContrast/index.theme
 
 %changelog
+* Thu Mar 22 2018 Kalev Lember <klember@redhat.com> - 3.22.2-2
+- Do not set treeview colors
+- Resolves: #1549711
+
 * Wed Oct 12 2016 Kalev Lember <klember@redhat.com> - 3.22.2-1
 - Update to 3.22.2
 - Resolves: #1386965
