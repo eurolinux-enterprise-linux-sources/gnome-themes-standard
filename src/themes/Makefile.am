@@ -1,1 +1,1 @@
-SUBDIRS = Adwaita Adwaita-dark HighContrast
+SUBDIRS = Adwaita HighContrast

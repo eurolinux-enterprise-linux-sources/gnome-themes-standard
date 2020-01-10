@@ -6,8 +6,6 @@
 #
 # High-contrast pixmap icons by jimmac with input from tigert.
 
-gtk-icon-theme=HighContrast
-
 style "default"
 {
   engine "hcengine" {

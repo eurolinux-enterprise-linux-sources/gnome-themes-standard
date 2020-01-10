@@ -80,7 +80,7 @@ ensure_dest_path (GFile *file,
 static void
 optimize_png (const gchar *png_path)
 {
-  gchar *cmd = g_strconcat ("zopflipng -ym ", png_path, " ", png_path, NULL);
+  gchar *cmd = g_strconcat ("optipng -quiet", " ", png_path, NULL);
   g_spawn_command_line_async (cmd, NULL);
   g_free (cmd);
 }
@@ -89,18 +89,11 @@ static GdkPixbuf *
 get_recolored_svg (GFile *file,
                    gint icon_size)
 {
-  gchar *data;
+  gchar *data, *str;
   GdkPixbuf *pixbuf;
   GInputStream *stream;
-  gchar *file_data, *escaped_file_data;
-  gsize file_len;
 
-  if (!g_file_load_contents (file, NULL, &file_data, &file_len, NULL, NULL))
-    return NULL;
-
-  escaped_file_data = g_markup_escape_text (file_data, file_len);
-  g_free (file_data);
-
+  str = g_file_get_path (file);
   data = g_strconcat ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                       "<svg version=\"1.1\"\n"
                       "     xmlns=\"http://www.w3.org/2000/svg\"\n"
@@ -121,15 +114,16 @@ get_recolored_svg (GFile *file,
                       "      fill: #4e9a06 !important;\n"
                       "    }\n"
                       "  </style>\n"
-                      "  <xi:include href=\"data:text/xml,", escaped_file_data, "\"/>\n"
+                      "  <xi:include href=\"", str, "\"/>\n"
                       "</svg>",
                       NULL);
-  g_free (escaped_file_data);
+
   stream = g_memory_input_stream_new_from_data (data, -1, g_free);
   pixbuf = gdk_pixbuf_new_from_stream_at_scale (stream,
                                                 icon_size, icon_size,
                                                 TRUE, NULL, NULL);
   g_object_unref (stream);
+  g_free (str);
 
   return pixbuf;
 }
@@ -322,7 +316,7 @@ static void
 process (int argc,
          char **argv)
 {
-  GList *symbolic_icons = NULL;
+  GList *svg_files = NULL;
   GQueue *descend_into_files;
   GFile *current_dir, *symbolic_theme, *file;
   gchar *str;
@@ -333,7 +327,7 @@ process (int argc,
   g_free (str);
 
   symbolic_theme = g_file_new_for_commandline_arg (argv[1]);
-  gnome_dir = g_file_resolve_relative_path (symbolic_theme, "Adwaita");
+  gnome_dir = g_file_resolve_relative_path (symbolic_theme, "gnome");
   hc_dir = g_file_resolve_relative_path (current_dir, "icons");
   g_object_unref (symbolic_theme);
 
@@ -350,9 +344,8 @@ process (int argc,
         {
           if (g_file_info_get_file_type (child_info) == G_FILE_TYPE_DIRECTORY)
             g_queue_push_tail (descend_into_files, g_file_resolve_relative_path (file, g_file_info_get_name (child_info)));
-          else if (g_content_type_is_a (g_file_info_get_content_type (child_info), "image/svg+xml") &&
-                   strstr (g_file_info_get_name (child_info), "-symbolic.svg"))
-            symbolic_icons = g_list_prepend (symbolic_icons, g_file_resolve_relative_path (file, g_file_info_get_name (child_info)));
+          else if (g_content_type_is_a (g_file_info_get_content_type (child_info), "image/svg+xml"))
+            svg_files = g_list_prepend (svg_files, g_file_resolve_relative_path (file, g_file_info_get_name (child_info)));
 
           g_object_unref (child_info);
         }
@@ -362,9 +355,9 @@ process (int argc,
     }
 
   for (idx = 0; idx < G_N_ELEMENTS (icon_sizes); idx++)
-    write_png_theme (symbolic_icons, icon_sizes[idx]);
+    write_png_theme (svg_files, icon_sizes[idx]);
 
-  g_list_free_full (symbolic_icons, g_object_unref);
+  g_list_free_full (svg_files, g_object_unref);
   g_queue_free (descend_into_files);
   g_clear_object (&gnome_dir);
   g_clear_object (&hc_dir);
@@ -376,10 +369,11 @@ main (int argc,
 {
   if (argc == 1)
     {
-      g_critical ("Location of adwaita-icon-theme repo must be given");
+      g_critical ("Location of gnome-icon-theme-symbolic repo must be given");
       return 0;
     }
 
+  g_type_init ();
   process (argc, argv);
   g_spawn_command_line_async ("./create-makefiles.sh", NULL);
 

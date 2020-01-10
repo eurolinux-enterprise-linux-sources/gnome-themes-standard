@@ -1,18 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.53)
 
-AC_INIT([gnome-themes-extra], [3.28],
-        [https://gitlab.gnome.org/GNOME/gnome-themes-extra/issues])
-
-AC_CONFIG_MACRO_DIR([m4])
+AC_INIT([gnome-themes-standard], [3.8.4],
+        [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-themes-standard])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar foreign dist-xz no-dist-gzip])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-
-dnl http://people.gnome.org/~walters/docs/build-api.txt
-dnl We don't support separate builddir because of the
-dnl HighContrast theme generation code
-echo \#buildapi-variable-no-builddir >/dev/null
 
 PKG_PROG_PKG_CONFIG([0.19])
 
@@ -42,7 +35,7 @@ AC_MSG_CHECKING([building gtk3 engine])
 AM_CONDITIONAL(GTK3_ENGINE, test "x$enable_gtk3_engine" = "xyes")
 AC_MSG_RESULT([$enable_gtk3_engine])
 
-GTK_VERSION_REQUIRED=3.9.12
+GTK_VERSION_REQUIRED=3.6.2
 if test "x$enable_gtk3_engine" = "xyes"; then
   PKG_CHECK_MODULES([GTK3_ENGINE], [gtk+-3.0 >= $GTK_VERSION_REQUIRED librsvg-2.0])
   PKG_CHECK_MODULES([HIGHCONTRAST], [cairo gio-2.0 gdk-pixbuf-2.0 gdk-3.0])
@@ -83,15 +76,16 @@ AC_CONFIG_FILES([
 Makefile
 themes/Makefile
 themes/Adwaita/Makefile
+themes/Adwaita/backgrounds/Makefile
+themes/Adwaita/cursors/Makefile
 themes/Adwaita/gtk-2.0/Makefile
 themes/Adwaita/gtk-3.0/Makefile
-themes/Adwaita-dark/Makefile
-themes/Adwaita-dark/gtk-2.0/Makefile
-themes/Adwaita-dark/gtk-3.0/Makefile
+themes/Adwaita/metacity-1/Makefile
 themes/HighContrast/Makefile
 themes/HighContrast/gtk-2.0/Makefile
 themes/HighContrast/gtk-3.0/Makefile
 themes/HighContrast/icons/Makefile
+themes/HighContrast/metacity-1/Makefile
 po/Makefile.in
 ])
 

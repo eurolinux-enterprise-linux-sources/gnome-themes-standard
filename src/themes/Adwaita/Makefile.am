@@ -1,4 +1,8 @@
-SUBDIRS = gtk-3.0
+SUBDIRS = backgrounds cursors metacity-1
+
+if GTK3_ENGINE
+SUBDIRS += gtk-3.0
+endif
 
 if GTK2_ENGINE
 SUBDIRS += gtk-2.0
