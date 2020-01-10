@@ -2,18 +2,16 @@
 %global gtk3_version 3.9.12
 
 Name: gnome-themes-standard
-Version: 3.22.2
+Version: 3.28
 Release: 2%{?dist}
 Summary: Standard themes for GNOME applications
 
 License: LGPLv2+
-URL: http://git.gnome.org/browse/gnome-themes-standard
-Source0: http://download.gnome.org/sources/%{name}/3.22/%{name}-%{version}.tar.xz
+URL: https://gitlab.gnome.org/GNOME/gnome-themes-extra
+Source0: http://download.gnome.org/sources/gnome-themes-extra/3.28/gnome-themes-extra-%{version}.tar.xz
 Source2: gtkrc
 Source3: metacity-theme-2.xml
 
-# Backported from upstream
-Patch0: 0001-Install-Adwaita-dark-css-file-in-the-right-directory.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1549711
 Patch1: 0001-Do-not-set-treeview-colors.patch
 
@@ -25,6 +23,7 @@ BuildRequires: /usr/bin/gtk-update-icon-cache
 Requires: abattis-cantarell-fonts
 Requires: adwaita-gtk2-theme = %{version}-%{release}
 Requires: adwaita-icon-theme
+Requires: google-noto-emoji-color-fonts
 
 Conflicts: adwaita-gtk3-theme < 3.13.3
 
@@ -42,8 +41,7 @@ The adwaita-gtk2-theme package contains a gtk2 theme for presenting widgets
 with a GNOME look and feel.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n gnome-themes-extra-%{version}
 %patch1 -p1
 
 %build
@@ -81,7 +79,7 @@ for t in HighContrast; do
 done
 
 %files
-%license COPYING
+%license LICENSE
 %doc NEWS
 %dir %{_datadir}/icons/HighContrast
 %{_datadir}/icons/HighContrast/16x16/
@@ -114,6 +112,14 @@ done
 %{_datadir}/themes/HighContrast/index.theme
 
 %changelog
+* Thu Jul 26 2018 Peng Wu <pwu@redhat.com> - 3.28-2
+- Requires google-noto-emoji-color-fonts
+- Resolves: #1595172
+
+* Thu May 24 2018 Kalev Lember <klember@redhat.com> - 3.28-1
+- Update to 3.28
+- Resolves: #1568633
+
 * Thu Mar 22 2018 Kalev Lember <klember@redhat.com> - 3.22.2-2
 - Do not set treeview colors
 - Resolves: #1549711

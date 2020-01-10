@@ -1,3 +1,30 @@
+3.28
+====
+- fix HC index.theme generation (#17)
+- fix typo (!3)
+
+3.27.92
+=======
+- distribute README.md and LICENSE (again)
+
+3.27.90.1
+=========
+- update configure.ac to new name
+
+3.27.90
+=======
+- rename to gnome-themes-extra
+- update README.md, various metafile updates
+- fix out-of-tree HC builds (Alexandre Rostovtsev)
+- use zopflipng (Ville Skyttä)
+- icon theme metadata updates (Jeremy Bicha, Dariusz Gadomski)
+- translation updates
+
+3.22.3
+======
+- dark theme fix
+- minor tweaks
+
 3.22.2
 ======
 - dark theme updates by Juraj Fiala

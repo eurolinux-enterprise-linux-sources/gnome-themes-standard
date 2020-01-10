@@ -1,46 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Sveinn í Felli <sv1@fellsnet.is>, 2015, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Gnome Nepali Translation Project\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "themes-standard&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-26 07:57+0000\n"
-"PO-Revision-Date: 2017-03-03 15:23+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
-"Language: is\n"
+"POT-Creation-Date: 2017-07-10 11:57+0000\n"
+"PO-Revision-Date: 2017-07-30 17:24+0545\n"
+"Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 2.0.3\n"
+"Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ne\n"
 
 #: ../themes/Adwaita-dark/index.theme.in.h:1
-#| msgid "Adwaita"
 msgid "Adwaita-dark"
-msgstr "Adwaita-dökkt"
+msgstr "अदविता-डार्क"
 
 #: ../themes/Adwaita-dark/index.theme.in.h:2
-#| msgid "There is only one"
 msgid "There was only one"
-msgstr "Það er aðeins eitt"
+msgstr "एउटा मात्र छ"
 
 #: ../themes/Adwaita/index.theme.in.h:1
 msgid "Adwaita"
-msgstr "Adwaita"
+msgstr "अदविता"
 
 #: ../themes/Adwaita/index.theme.in.h:2
 msgid "There is only one"
-msgstr "Það er aðeins eitt"
+msgstr "एउटा मात्र छ"
 
 #: ../themes/HighContrast/index.theme.in.h:1
 msgid "High Contrast"
-msgstr "Mikil birtuskil"
+msgstr "उच्च कन्ट्रास्ट"
 
 #: ../themes/HighContrast/index.theme.in.h:2
 msgid "High contrast theme"
-msgstr "Þema með mikil birtuskil"
-
+msgstr "उच्च कन्ट्रास्ट बिषयवस्तु"
