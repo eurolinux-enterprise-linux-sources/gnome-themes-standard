@@ -1,15 +1,53 @@
-3.14.2.2
-========
- - remove some HC app icons that already ship with apps
+3.22.2
+======
+- dark theme updates by Juraj Fiala
+- Adwaita updates by Lapo Calamandrei
 
-3.14.2.1
-========
- - update gtk2 HC icons
+3.22.1
+======
+- gtk2 dark variant by Juraj Fiala
+- translations
 
-3.14.2
+3.20.2
+======
+- scrollbar tweaks
+- makefile updates
+
+3.20
+====
+
+3.19.91
+=======
+ - updated gtk2 theme (by Juraj Fiala)
+
+3.18.0
+======
+ - Portugese translations
+
+3.16.2
+======
+ - translation updates
+
+3.16.0
+======
+ - update README
+ - translation updates
+
+3.15.90
+=======
+ - drop metacity theme
+ - drop polari icon
+
+3.15.2.2
+3.15.2.1
+========
+ - remove some HC app icons that are already shipped with apps
+
+3.15.2
 ======
  - update gtk2 theme (entries, spinbuttons, radios, checks...)
  - update HC icon names
+ - update gtk2 HC icons
 
 3.14.0
 ======

@@ -1,31 +1,25 @@
 %global gtk2_version 2.24.15
-%global gtk3_version 3.9.3
+%global gtk3_version 3.9.12
 
 Name: gnome-themes-standard
-Version: 3.14.2.2
-Release: 2%{?dist}
+Version: 3.22.2
+Release: 1%{?dist}
 Summary: Standard themes for GNOME applications
 
-Group: User Interface/Desktops
 License: LGPLv2+
 URL: http://git.gnome.org/browse/gnome-themes-standard
-Source0: http://download.gnome.org/sources/%{name}/3.14/%{name}-%{version}.tar.xz
-Source1: settings.ini
+Source0: http://download.gnome.org/sources/%{name}/3.22/%{name}-%{version}.tar.xz
 Source2: gtkrc
 Source3: metacity-theme-2.xml
 
-Obsoletes: fedora-gnome-theme <= 15.0-1.fc15
-Provides: fedora-gnome-theme = 1:%{version}-%{release}
-
-Obsoletes: gnome-background-standard < 3.0.0-2
-Provides: gnome-background-standard = %{version}-%{release}
+# Backported from upstream
+Patch0: 0001-Install-Adwaita-dark-css-file-in-the-right-directory.patch
 
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: librsvg2-devel
 BuildRequires: intltool gettext autoconf automake libtool
-# for gtk-update-icon-cache
-BuildRequires: gtk2
+BuildRequires: /usr/bin/gtk-update-icon-cache
 Requires: abattis-cantarell-fonts
 Requires: adwaita-gtk2-theme = %{version}-%{release}
 Requires: adwaita-icon-theme
@@ -39,7 +33,6 @@ window borders and GTK+ applications.
 
 %package -n adwaita-gtk2-theme
 Summary: Adwaita gtk2 theme
-Group: User Interface/Desktops
 Requires: gtk2%{_isa} >= %{gtk2_version}
 
 %description -n adwaita-gtk2-theme
@@ -48,13 +41,14 @@ with a GNOME look and feel.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure
 make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 for s in 16x16 22x22 24x24 32x32 48x48 256x256; do
   cp $RPM_BUILD_ROOT%{_datadir}/icons/HighContrast/$s/apps/liveinst.png $RPM_BUILD_ROOT%{_datadir}/icons/HighContrast/$s/apps/anaconda.png
@@ -84,25 +78,43 @@ for t in HighContrast; do
 done
 
 %files
-%doc COPYING NEWS
-
-# Background and WM
-%{_datadir}/themes/Adwaita
-%exclude %{_datadir}/themes/Adwaita/gtk-2.0
-
-# A11y themes
+%license COPYING
+%doc NEWS
+%dir %{_datadir}/icons/HighContrast
+%{_datadir}/icons/HighContrast/16x16/
+%{_datadir}/icons/HighContrast/22x22/
+%{_datadir}/icons/HighContrast/24x24/
+%{_datadir}/icons/HighContrast/32x32/
+%{_datadir}/icons/HighContrast/48x48/
+%{_datadir}/icons/HighContrast/256x256/
+%{_datadir}/icons/HighContrast/scalable/
+%{_datadir}/icons/HighContrast/index.theme
 %ghost %{_datadir}/icons/HighContrast/icon-theme.cache
-%{_datadir}/icons/HighContrast
-%{_datadir}/themes/HighContrast
+%{_datadir}/themes/Adwaita/gtk-3.0/
+%{_datadir}/themes/Adwaita-dark/gtk-3.0/
+%{_datadir}/themes/HighContrast/gtk-3.0/
 
 %files -n adwaita-gtk2-theme
 # gtk2 Theme and engine
 %{_libdir}/gtk-2.0/2.10.0/engines/libadwaita.so
-%{_datadir}/themes/Adwaita/gtk-2.0
 # Default gtk2 settings
 %{_datadir}/gtk-2.0/gtkrc
+%dir %{_datadir}/themes/Adwaita
+%{_datadir}/themes/Adwaita/gtk-2.0/
+%{_datadir}/themes/Adwaita/metacity-1/
+%{_datadir}/themes/Adwaita/index.theme
+%dir %{_datadir}/themes/Adwaita-dark
+%{_datadir}/themes/Adwaita-dark/gtk-2.0/
+%{_datadir}/themes/Adwaita-dark/index.theme
+%dir %{_datadir}/themes/HighContrast
+%{_datadir}/themes/HighContrast/gtk-2.0/
+%{_datadir}/themes/HighContrast/index.theme
 
 %changelog
+* Wed Oct 12 2016 Kalev Lember <klember@redhat.com> - 3.22.2-1
+- Update to 3.22.2
+- Resolves: #1386965
+
 * Thu Jun  4 2015 Matthias Clasen <mclasen@redhat.com> - 3.14.2.2-2
 - Keep shipping a metacity theme that works with metacity 3.12
 - Resolves: #1227540

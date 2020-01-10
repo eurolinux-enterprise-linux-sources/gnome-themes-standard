@@ -1,0 +1,34 @@
+From ae703a57261c26ad9f7dd328fd110046a7456bbd Mon Sep 17 00:00:00 2001
+From: Kalev Lember <klember@redhat.com>
+Date: Wed, 12 Oct 2016 23:37:49 +0200
+Subject: [PATCH] Install Adwaita-dark css file in the right directory
+
+---
+ themes/Adwaita-dark/gtk-3.0/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/themes/Adwaita-dark/gtk-3.0/Makefile.am b/themes/Adwaita-dark/gtk-3.0/Makefile.am
+index bc0a73e..5cbcf63 100644
+--- a/themes/Adwaita-dark/gtk-3.0/Makefile.am
++++ b/themes/Adwaita-dark/gtk-3.0/Makefile.am
+@@ -1,4 +1,4 @@
+-themedir = $(datadir)/themes/Adwaita/gtk-3.0
++themedir = $(datadir)/themes/Adwaita-dark/gtk-3.0
+ 
+ theme_DATA = gtk.css
+ 
+-- 
+2.7.4
+
+diff -up gnome-themes-standard-3.22.2/themes/Adwaita-dark/gtk-3.0/Makefile.in.orig gnome-themes-standard-3.22.2/themes/Adwaita-dark/gtk-3.0/Makefile.in
+--- gnome-themes-standard-3.22.2/themes/Adwaita-dark/gtk-3.0/Makefile.in.orig	2016-11-17 02:59:53.309849034 +0100
++++ gnome-themes-standard-3.22.2/themes/Adwaita-dark/gtk-3.0/Makefile.in	2016-11-17 03:00:11.278732581 +0100
+@@ -291,7 +291,7 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-themedir = $(datadir)/themes/Adwaita/gtk-3.0
++themedir = $(datadir)/themes/Adwaita-dark/gtk-3.0
+ theme_DATA = gtk.css
+ EXTRA_DIST = $(theme_DATA)
+ all: all-am

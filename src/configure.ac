@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.53)
 
-AC_INIT([gnome-themes-standard], [3.14.2.2],
+AC_INIT([gnome-themes-standard], [3.22.2],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-themes-standard])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -85,12 +85,13 @@ themes/Makefile
 themes/Adwaita/Makefile
 themes/Adwaita/gtk-2.0/Makefile
 themes/Adwaita/gtk-3.0/Makefile
-themes/Adwaita/metacity-1/Makefile
+themes/Adwaita-dark/Makefile
+themes/Adwaita-dark/gtk-2.0/Makefile
+themes/Adwaita-dark/gtk-3.0/Makefile
 themes/HighContrast/Makefile
 themes/HighContrast/gtk-2.0/Makefile
 themes/HighContrast/gtk-3.0/Makefile
 themes/HighContrast/icons/Makefile
-themes/HighContrast/metacity-1/Makefile
 po/Makefile.in
 ])
 
